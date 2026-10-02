@@ -1,38 +1,58 @@
 # Meu Painel Financeiro — PWA
 
-Este repositório contém a versão PWA do Painel Financeiro Pessoal.
+Aplicativo financeiro pessoal em PWA, publicado pelo GitHub Pages.
 Acesse: https://mestreudk.github.io/Painel-Financeiro-PWA/
 
-## Estrutura
+## Versão 2 — planejamento financeiro
+
+Além do controle original de receitas, despesas, reservas, categorias, limites, gráficos e exportações, esta versão adiciona:
+
+- lançamentos recorrentes automáticos;
+- cartões de crédito, fechamento, vencimento e parcelamento;
+- calendário financeiro;
+- contas/carteiras e saldos;
+- fundos separados e objetivos de reserva;
+- controle de dívidas;
+- previsão do saldo mensal;
+- comparação com o mês anterior e médias de 3 e 6 meses;
+- simulador de economia por categoria;
+- indicadores de saúde financeira, sem nota ou ranking;
+- centro de avisos/resumos financeiros (substitui a ideia de conquistas);
+- regras automáticas de categorização;
+- importação de extratos CSV/XLSX;
+- fechamento mensal;
+- últimos 5 backups locais automáticos;
+- PIN local e opção de desbloqueio do dispositivo quando o navegador oferecer WebAuthn;
+- notificações locais opcionais enquanto o app estiver em execução.
+
+## Atualização sem perder dados
+
+A versão 2 continua usando a chave `painelFinanceiro_v1` no `localStorage` para migrar automaticamente os dados da versão anterior quando o PWA permanece no mesmo endereço do GitHub Pages. Novos campos são preenchidos com valores padrão.
+
+Mesmo assim, faça um **backup JSON manual antes de atualizar**.
+
+## Estrutura do repositório
 
 - `index.html` — aplicativo principal
-- `manifest.webmanifest` — configura nome, ícones e modo de instalação
-- `sw.js` — Service Worker para cache/offline
-- `icons/` — ícones 192, 512 e maskable
-- `.nojekyll` — evita processamento desnecessário pelo Jekyll no GitHub Pages
+- `manifest.webmanifest` — nome, ícones e instalação
+- `sw.js` — Service Worker/cache offline
+- `icons/` — ícones do PWA
+- `.nojekyll` — evita processamento pelo Jekyll
 
-## Instalar no celular
+## Dados e privacidade
 
-Abra o endereço publicado pelo GitHub Pages em um navegador compatível. No Android com Chrome, o navegador poderá oferecer **Instalar app**; o próprio painel também exibe o botão `📲 Instalar app` quando o navegador disponibiliza o prompt de instalação.
+Os dados financeiros continuam armazenados no `localStorage` do navegador e não são enviados ao repositório GitHub.
 
-## Dados e backups
+O PIN/desbloqueio do dispositivo funciona como **trava de acesso à interface**. Ele não criptografa o `localStorage`.
 
-Os dados do painel continuam sendo gravados no `localStorage` do navegador. Eles **não ficam dentro do repositório GitHub**.
+## Backups
 
-Importante: os dados salvos quando você abriu o arquivo HTML diretamente no aparelho não migram automaticamente para a versão publicada no GitHub Pages, pois é uma origem diferente. Antes da mudança, exporte um backup JSON no HTML antigo e depois use **Importar JSON** na versão PWA.
+O app mantém os últimos 5 estados anteriores no próprio navegador e continua permitindo exportar um backup JSON completo. Backups locais também são apagados quando o usuário escolhe apagar todos os dados.
 
-## Offline
+## Importação de extratos
 
-O Service Worker guarda o aplicativo e tenta guardar também as bibliotecas externas usadas por gráficos e exportações. Para preparar o uso offline, abra o PWA ao menos uma vez com internet e aguarde o carregamento completo.
+O importador aceita `.csv`, `.xlsx` e `.xls`. Ele procura cabeçalhos equivalentes a **Data**, **Descrição/Histórico** e **Valor** e aplica as regras de categorização cadastradas. Registros com a mesma data, descrição, valor e tipo são ignorados para reduzir duplicações.
 
-## Atualizações
+## Offline e atualização
 
-O navegador verifica automaticamente mudanças no `sw.js`. Para uma atualização grande de arquivos em cache, você também pode alterar no começo de `sw.js`:
-
-`const CACHE_NAME = "painel-financeiro-v1";`
-
-para, por exemplo:
-
-`const CACHE_NAME = "painel-financeiro-v2";`
-
-Depois faça commit/push normalmente.
+O Service Worker usa o cache `painel-financeiro-v2`. Abra o PWA ao menos uma vez com internet para que o app e as bibliotecas externas sejam armazenados em cache. Após publicar uma atualização grande, altere novamente o nome do cache (`v3`, `v4` etc.) para forçar a renovação dos arquivos.
