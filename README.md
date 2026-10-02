@@ -10,19 +10,6 @@ Este repositório contém a versão PWA do Painel Financeiro Pessoal.
 - `icons/` — ícones 192, 512 e maskable
 - `.nojekyll` — evita processamento desnecessário pelo Jekyll no GitHub Pages
 
-## Publicar no GitHub Pages
-
-1. Crie um novo repositório no GitHub, por exemplo `painel-financeiro-pwa`.
-2. Envie **o conteúdo desta pasta para a raiz do repositório**. O `index.html` deve ficar na raiz.
-3. No repositório, abra **Settings → Pages**.
-4. Em **Build and deployment / Source**, escolha **Deploy from a branch**.
-5. Em **Branch**, selecione `main` e a pasta `/(root)`, depois salve.
-6. Quando o Pages terminar a publicação, abra a URL informada pelo GitHub.
-
-Se o repositório se chamar `painel-financeiro-pwa`, a URL normalmente terá o formato:
-
-`https://SEU-USUARIO.github.io/painel-financeiro-pwa/`
-
 ## Instalar no celular
 
 Abra o endereço publicado pelo GitHub Pages em um navegador compatível. No Android com Chrome, o navegador poderá oferecer **Instalar app**; o próprio painel também exibe o botão `📲 Instalar app` quando o navegador disponibiliza o prompt de instalação.
